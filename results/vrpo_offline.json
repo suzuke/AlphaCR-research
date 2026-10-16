@@ -1,0 +1,21 @@
+{
+  "source": "internal report: offline estimator comparison (2026-10-16)",
+  "train_games": 1024,
+  "heldout_games": 512,
+  "advantage_sd": {
+    "critic_gae": 0.164184,
+    "q_boost": 0.16995,
+    "change_pct": 3.512,
+    "gate": ">=20% reduction"
+  },
+  "half_split_gradient_cosine": {
+    "critic_gae": 0.207969,
+    "q_boost": 0.191871,
+    "gate": "q_boost > critic_gae"
+  },
+  "explained_variance_vs_mc": {
+    "critic_V": 0.195942,
+    "actor_V": 0.405162
+  },
+  "gates_passed": "0/3"
+}

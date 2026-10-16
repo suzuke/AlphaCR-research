@@ -1,0 +1,217 @@
+{
+  "status": "IN PROGRESS",
+  "source": [
+    "internal CFV run: preregistration, per-pair results and summary (2026-10-16, in progress)"
+  ],
+  "completed_roots": 15,
+  "planned_roots": 34,
+  "counts": {
+    "drop": {
+      "total": 20,
+      "complete": 12,
+      "confirmed": 2,
+      "meanDelta": 0.048177083333333336
+    },
+    "control": {
+      "total": 4,
+      "complete": 0,
+      "confirmed": 0,
+      "meanDelta": null
+    },
+    "negative": {
+      "total": 10,
+      "complete": 3,
+      "confirmed": 0,
+      "meanDelta": 0.0625
+    }
+  },
+  "rows": [
+    {
+      "root": 6,
+      "group": "drop",
+      "n": 64,
+      "delta": -0.0312,
+      "ci95": [
+        -0.1915,
+        0.129
+      ],
+      "confirmed": false,
+      "r3_delta": 0.0535
+    },
+    {
+      "root": 7,
+      "group": "drop",
+      "n": 64,
+      "delta": 0.125,
+      "ci95": [
+        0.0115,
+        0.2385
+      ],
+      "confirmed": true,
+      "r3_delta": 0.2726
+    },
+    {
+      "root": 8,
+      "group": "drop",
+      "n": 64,
+      "delta": 0.2188,
+      "ci95": [
+        0.0616,
+        0.3759
+      ],
+      "confirmed": true,
+      "r3_delta": 0.1002
+    },
+    {
+      "root": 11,
+      "group": "drop",
+      "n": 64,
+      "delta": 0.0,
+      "ci95": [
+        -0.0995,
+        0.0995
+      ],
+      "confirmed": false,
+      "r3_delta": 0.1096
+    },
+    {
+      "root": 14,
+      "group": "negative",
+      "n": 64,
+      "delta": 0.0469,
+      "ci95": [
+        -0.0823,
+        0.1761
+      ],
+      "confirmed": false,
+      "r3_delta": 0.1183
+    },
+    {
+      "root": 15,
+      "group": "drop",
+      "n": 64,
+      "delta": 0.0781,
+      "ci95": [
+        -0.0028,
+        0.159
+      ],
+      "confirmed": false,
+      "r3_delta": 0.0823
+    },
+    {
+      "root": 17,
+      "group": "drop",
+      "n": 64,
+      "delta": 0.0469,
+      "ci95": [
+        -0.0225,
+        0.1162
+      ],
+      "confirmed": false,
+      "r3_delta": 0.0534
+    },
+    {
+      "root": 18,
+      "group": "negative",
+      "n": 64,
+      "delta": 0.1406,
+      "ci95": [
+        -0.0061,
+        0.2873
+      ],
+      "confirmed": false,
+      "r3_delta": 0.0519
+    },
+    {
+      "root": 21,
+      "group": "drop",
+      "n": 64,
+      "delta": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "confirmed": false,
+      "r3_delta": 0.1517
+    },
+    {
+      "root": 23,
+      "group": "negative",
+      "n": 64,
+      "delta": 0.0,
+      "ci95": [
+        -0.0995,
+        0.0995
+      ],
+      "confirmed": false,
+      "r3_delta": -0.0966
+    },
+    {
+      "root": 24,
+      "group": "drop",
+      "n": 64,
+      "delta": 0.0625,
+      "ci95": [
+        -0.013,
+        0.138
+      ],
+      "confirmed": false,
+      "r3_delta": 0.1412
+    },
+    {
+      "root": 26,
+      "group": "drop",
+      "n": 64,
+      "delta": 0.0156,
+      "ci95": [
+        -0.0156,
+        0.0468
+      ],
+      "confirmed": false,
+      "r3_delta": 0.2433
+    },
+    {
+      "root": 31,
+      "group": "drop",
+      "n": 64,
+      "delta": 0.0156,
+      "ci95": [
+        -0.1062,
+        0.1374
+      ],
+      "confirmed": false,
+      "r3_delta": 0.1408
+    },
+    {
+      "root": 32,
+      "group": "drop",
+      "n": 64,
+      "delta": -0.0156,
+      "ci95": [
+        -0.11,
+        0.0787
+      ],
+      "confirmed": false,
+      "r3_delta": 0.0763
+    },
+    {
+      "root": 33,
+      "group": "drop",
+      "n": 64,
+      "delta": 0.0625,
+      "ci95": [
+        -0.0251,
+        0.1501
+      ],
+      "confirmed": false,
+      "r3_delta": 0.1186
+    }
+  ],
+  "worked_example": {
+    "root": 8,
+    "pairs": 64,
+    "A_wins": 39,
+    "B_wins": 53,
+    "delta": 0.21875
+  }
+}

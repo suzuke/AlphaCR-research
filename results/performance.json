@@ -1,0 +1,6 @@
+{
+  "note": "Per-game CPU time and overall speedup from profiling the training data generation loop.",
+  "cpu_seconds_per_game_before": 14.5,
+  "cpu_seconds_per_game_after": 10,
+  "overall_speedup": 1.44
+}

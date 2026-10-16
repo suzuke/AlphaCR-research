@@ -1,0 +1,42 @@
+{
+  "source": "internal report: post-hoc iterate averaging (2026-10-16)",
+  "games_each": 400,
+  "rows": [
+    {
+      "name": "average of iterates 5-9 vs PPO4 final",
+      "wins": 194,
+      "winrate": 0.485,
+      "ci95": [
+        0.436,
+        0.534
+      ]
+    },
+    {
+      "name": "EMA(0.7) vs PPO4 final",
+      "wins": 203,
+      "winrate": 0.507,
+      "ci95": [
+        0.459,
+        0.556
+      ]
+    },
+    {
+      "name": "EMA(0.7) vs theta29_t",
+      "wins": 202,
+      "winrate": 0.505,
+      "ci95": [
+        0.456,
+        0.554
+      ]
+    },
+    {
+      "name": "PPO4 final vs theta29_t (reference)",
+      "wins": 208,
+      "winrate": 0.52,
+      "ci95": [
+        0.471,
+        0.569
+      ]
+    }
+  ]
+}

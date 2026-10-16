@@ -1,0 +1,19 @@
+{
+  "source": [
+    "internal reports: cross-architecture tick parity (initial and expanded 50-game acceptance)"
+  ],
+  "expanded": {
+    "games": 50,
+    "ticks": 227770,
+    "mismatches": 0,
+    "distinct_deck_pairs": 50,
+    "games_with_evolved_unit": 46,
+    "games_with_champion": 17,
+    "games_with_overtime": 25
+  },
+  "initial": {
+    "ticks_with_commands": 5450,
+    "ticks_live_commands": 3602,
+    "live_commands_accepted": "8/8"
+  }
+}

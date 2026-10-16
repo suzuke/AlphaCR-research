@@ -1,0 +1,56 @@
+{
+  "note": "Online matches with the official-contract build; aggregate counts only. Resolved games only (win/loss recorded with matching winner index).",
+  "source": "internal run summaries (51 sessions, 2026-10-13 to 2026-10-16), aggregated",
+  "by_model_mode": [
+    {
+      "model": "theta19",
+      "mode": "ranked-style",
+      "wins": 8,
+      "losses": 0,
+      "unresolved": 2
+    },
+    {
+      "model": "theta29",
+      "mode": "challenge-style",
+      "wins": 28,
+      "losses": 2,
+      "unresolved": 0
+    },
+    {
+      "model": "theta29",
+      "mode": "ranked-style",
+      "wins": 51,
+      "losses": 3,
+      "unresolved": 1
+    },
+    {
+      "model": "theta29-ppo3-it9",
+      "mode": "challenge-style",
+      "wins": 130,
+      "losses": 19,
+      "unresolved": 0
+    },
+    {
+      "model": "theta29-ppo3-it9",
+      "mode": "ranked-style",
+      "wins": 34,
+      "losses": 9,
+      "unresolved": 0
+    }
+  ],
+  "total": {
+    "wins": 251,
+    "losses": 33,
+    "winrate": 0.8838,
+    "ci95": [
+      0.8413,
+      0.9161
+    ]
+  },
+  "sessions_resolved": 26,
+  "best_sessions": {
+    "challenge_style_12_0": 1,
+    "challenge_style_12_1": 2,
+    "ranked_style_18_2": 1
+  }
+}

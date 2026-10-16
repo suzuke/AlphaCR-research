@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 330" font-family="Helvetica, Arial, sans-serif" font-size="14">
+  <defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#4a5568"/></marker></defs>
+  <rect width="760" height="330" fill="#ffffff"/>
+  <g fill="#ebf4ff" stroke="#2b6cb0" stroke-width="1.5">
+    <rect x="20" y="40" width="130" height="64" rx="8"/><rect x="190" y="40" width="130" height="64" rx="8"/>
+    <rect x="360" y="40" width="130" height="64" rx="8"/><rect x="530" y="40" width="130" height="64" rx="8"/>
+    <rect x="530" y="200" width="130" height="64" rx="8"/><rect x="300" y="200" width="160" height="64" rx="8"/><rect x="20" y="200" width="200" height="64" rx="8"/>
+  </g>
+  <g text-anchor="middle" fill="#1a202c">
+    <text x="85" y="68">Deterministic</text><text x="85" y="88">Simulator</text>
+    <text x="255" y="68">Human Match</text><text x="255" y="88">Replay</text>
+    <text x="425" y="68">Imitation</text><text x="425" y="88">Learning (IL)</text>
+    <text x="595" y="68">Self-play RL</text><text x="595" y="88">(PPO)</text>
+    <text x="595" y="228">Evaluation</text><text x="595" y="248">(win rate)</text>
+    <text x="380" y="228">Online Play</text><text x="380" y="248">(live opponents)</text>
+    <text x="120" y="228">Counterfactual</text><text x="120" y="248">Verification (WIP)</text>
+  </g>
+  <g stroke="#4a5568" stroke-width="2" fill="none" marker-end="url(#a)">
+    <path d="M150,72 H188"/><path d="M320,72 H358"/><path d="M490,72 H528"/>
+    <path d="M595,104 V198"/><path d="M528,232 H462"/><path d="M85,104 V198" stroke-dasharray="5 4"/>
+  </g>
+  <text x="380" y="300" text-anchor="middle" fill="#718096" font-size="12">Concept-level overview. Implementation details are intentionally omitted.</text>
+</svg>

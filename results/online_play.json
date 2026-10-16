@@ -1,0 +1,47 @@
+{
+  "note": "Online results, finished games only; opponent trophy buckets.",
+  "sessions": 37,
+  "overall": {
+    "games": 265,
+    "wins": 201,
+    "winrate": 0.758
+  },
+  "by_opponent_trophies": [
+    {
+      "bucket": "<3000",
+      "games": 7,
+      "wins": 6,
+      "winrate": 0.857
+    },
+    {
+      "bucket": "3000-3999",
+      "games": 34,
+      "wins": 29,
+      "winrate": 0.853
+    },
+    {
+      "bucket": "4000-4999",
+      "games": 44,
+      "wins": 28,
+      "winrate": 0.636
+    },
+    {
+      "bucket": "5000-5999",
+      "games": 44,
+      "wins": 32,
+      "winrate": 0.727
+    },
+    {
+      "bucket": "6000+",
+      "games": 61,
+      "wins": 43,
+      "winrate": 0.705
+    },
+    {
+      "bucket": "unknown",
+      "games": 75,
+      "wins": 63,
+      "winrate": 0.84
+    }
+  ]
+}

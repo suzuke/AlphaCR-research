@@ -1,0 +1,37 @@
+{
+  "source": [
+    "internal reports: checkpoint transfer evaluation and model notes (2026-10-13/14)"
+  ],
+  "sim_line_theta29_vs_il_baseline": {
+    "games": 400,
+    "wins": 309,
+    "winrate": 0.7725,
+    "ci95": [
+      0.729,
+      0.811
+    ]
+  },
+  "sim_line_theta19_vs_il_baseline": {
+    "games": 400,
+    "winrate": 0.735
+  },
+  "official_contract_theta29_t_vs_il_baseline": {
+    "games": 288,
+    "wins": 218,
+    "winrate": 0.7569,
+    "ci95": [
+      0.7042,
+      0.8029
+    ]
+  },
+  "official_contract_theta19_t_vs_il_baseline": {
+    "games": 440,
+    "wins": 323,
+    "winrate": 0.734,
+    "ci95": [
+      0.691,
+      0.773
+    ]
+  },
+  "method": "weights byte-identical, only the header/contract id changed"
+}

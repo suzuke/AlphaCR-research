@@ -1,0 +1,152 @@
+{
+  "note": "Evaluation win rates of official-contract PPO runs against their common start checkpoint (theta29_t) and the then-promoted model. Interim evals: 200 games; final: 400 games.",
+  "source": [
+    "internal report: official-contract PPO results and run logs (2026-10-15/16)"
+  ],
+  "interim": {
+    "official-ppo3": [
+      {
+        "iteration": 4,
+        "opponent": "start_checkpoint",
+        "games": 200,
+        "wins": 106,
+        "winrate": 0.53,
+        "ci95": [
+          0.4609,
+          0.598
+        ]
+      },
+      {
+        "iteration": 4,
+        "opponent": "promoted",
+        "games": 200,
+        "wins": 107,
+        "winrate": 0.535,
+        "ci95": [
+          0.4659,
+          0.6028
+        ]
+      },
+      {
+        "iteration": 9,
+        "opponent": "start_checkpoint",
+        "games": 200,
+        "wins": 105,
+        "winrate": 0.525,
+        "ci95": [
+          0.456,
+          0.5931
+        ]
+      },
+      {
+        "iteration": 9,
+        "opponent": "promoted",
+        "games": 200,
+        "wins": 97,
+        "winrate": 0.485,
+        "ci95": [
+          0.4167,
+          0.5539
+        ]
+      }
+    ],
+    "official-ppo4": [
+      {
+        "iteration": 4,
+        "opponent": "start_checkpoint",
+        "games": 200,
+        "wins": 113,
+        "winrate": 0.565,
+        "ci95": [
+          0.4957,
+          0.6318
+        ]
+      },
+      {
+        "iteration": 4,
+        "opponent": "promoted",
+        "games": 200,
+        "wins": 99,
+        "winrate": 0.495,
+        "ci95": [
+          0.4265,
+          0.5637
+        ]
+      },
+      {
+        "iteration": 9,
+        "opponent": "start_checkpoint",
+        "games": 200,
+        "wins": 113,
+        "winrate": 0.565,
+        "ci95": [
+          0.4957,
+          0.6318
+        ]
+      },
+      {
+        "iteration": 9,
+        "opponent": "promoted",
+        "games": 200,
+        "wins": 106,
+        "winrate": 0.53,
+        "ci95": [
+          0.4609,
+          0.598
+        ]
+      }
+    ],
+    "official-ppo5": [
+      {
+        "iteration": 4,
+        "opponent": "start_checkpoint",
+        "games": 200,
+        "wins": 101,
+        "winrate": 0.505,
+        "ci95": [
+          0.4363,
+          0.5735
+        ]
+      },
+      {
+        "iteration": 4,
+        "opponent": "promoted",
+        "games": 200,
+        "wins": 94,
+        "winrate": 0.47,
+        "ci95": [
+          0.402,
+          0.5391
+        ]
+      }
+    ]
+  },
+  "final_vs_start": {
+    "official-ppo3": {
+      "games": 400,
+      "wins": 211,
+      "winrate": 0.5275,
+      "ci95": [
+        0.4785,
+        0.5759
+      ]
+    },
+    "official-ppo4": {
+      "games": 400,
+      "wins": 208,
+      "winrate": 0.52,
+      "ci95": [
+        0.4711,
+        0.5685
+      ]
+    }
+  },
+  "ppo5_kl_to_il_per_round": [
+    0.046,
+    0.053,
+    0.059,
+    0.06,
+    0.065
+  ],
+  "ppo5_note": "ppo5 stopped during round 5; KL values from RESULTS.md"
+}
