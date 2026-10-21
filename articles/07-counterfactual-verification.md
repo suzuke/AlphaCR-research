@@ -1,6 +1,11 @@
-# 反事實驗證：用原生模擬證明「另一手更好」
+# 換一個出牌決定，真的更容易贏嗎？
+
+**一句話：要驗證改做另一個出牌決定是否更好，就從同一局面分別走兩種做法並打到結束；目前只有部分局面確認有效，實驗仍在進行，不能作整體可靠性判定。**
+
 
 > AlphaCR 技術筆記 07。**狀態：進行中（IN PROGRESS）**，34 個局面中已完成 15 個，不作整體可靠性判定。數據：[results/cfv_roots.json](../results/cfv_roots.json)。
+
+本文用語：反事實驗證（CFV）是從同一起點比較兩種走法；tick 是遊戲更新一步；checksum 是狀態內容的檢查摘要；R3 是先前用短期搜尋挑候選動作的實驗。
 
 **Abstract.** Can we show, not just claim, that a different move at a given position would have been better? Because the simulator is deterministic and can be snapshotted, we restore the exact same state, play move A in one branch and move B in the other, and roll both to the natural end of the game with a counter-based shared random stream (common random numbers). The protocol is preregistered, uses 64 fresh pairs per position, confirms only if the paired 95% interval is strictly above zero, and includes same-action and negative controls. Status: 15 of 34 positions done; 2 of 12 completed key positions confirm, 0 of 3 negative controls confirm. One worked example (root 008) shows a clear effect: 39/64 wins vs 53/64, delta +0.22, 95% CI [+0.06, +0.38].
 

@@ -1,35 +1,47 @@
-# AlphaCR
+# AlphaCR：讓 AI 學會自己打牌
 
-一個以「決定性模擬器」為基礎、從真人對局學習並透過自我對戰持續進步的即時對戰遊戲 AI 研究專案。本 repo 是**成果展示**，只包含數據、圖表、概念圖與文章。
+AlphaCR 是一個會自己打《Clash Royale》這款即時對戰手遊的 AI 研究專案。
+它先看真人對局，學會什麼時候出牌、把牌放在哪裡。
+接著自己跟自己對打，從勝負中練得更強，最後上線和真人交手。
+這裡展示成果、研究過程與失敗的嘗試。
 
-> **本 repo 不含專案原始碼（僅附一個繪圖腳本 `tools/make_charts.py`）、資料或模型權重。** 展示影片（`media/`）包含遊戲對戰畫面（訓練營 NPC 對戰的原生錄影），不含任何玩家名稱。這是研究成果的展示，不是可執行或可複製的專案。
-> 本專案為獨立個人研究，與遊戲的權利人無任何關聯。遊戲名稱與商標屬於其各自所有人。
+[![觀看繁體中文展示影片](media/alphacr-research-zh-TW-poster.png)](media/alphacr-research-zh-TW.mp4)
 
-## 亮點
+## AI 有多強？
 
-| 項目 | 結果 |
-|---|---|
-| 自我對戰 RL（第 19 迭代）對 IL 基準勝率 | **71.0%**（週期評估 142/200，95% CI 64.4%–76.9%；最終評估 284/400 = 71%，與影片一致） |
-| 勝率成長（第 4 → 9 → 14 → 19 迭代） | 51.0% → 64.0% → 68.5% → 71.0% |
-| 線上對真人實戰（累計 265 場完成對局） | **75.8%**（201 勝） |
-| 資料產生每局 CPU 時間 | 14.5 秒 → 約 10 秒（整體 **1.44 倍**） |
-| 自建模擬器線 θ29（接續訓練第 3 次、第 9 輪）對 IL 基準 | **77.3%**（400 局，95% CI 72.9%–81.1%；θ19 為 73.5%） |
-| 搬到官方合約（權重逐位元組相同，只換表頭）θ29_t 對 IL 基準 | **75.7%**（218/288，95% CI 70.4%–80.3%）：相對強度沒有可量到的搬遷損失 |
-| 對真人玩家的線上測試對局（官方合約版本，僅彙總計數） | 284 場有勝負的對局 251 勝 33 負（88.4%）；單一場次例：12–0、12–1、18–2 |
-| 跨架構逐 tick 決定性（x86_64 vs ARM64） | 50 局、227,770 tick，**0 不一致**（[文章 04](articles/04-cross-arch-determinism.md)） |
-| rollout 速度 | 找出 250 倍落差的瓶頸，一行等級的修正帶來 **1.98×**（[文章 05](articles/05-rollout-250x.md)） |
-| 官方合約下的 PPO | 三個 run 都停在約 52%；三個假說被否定（[文章 06](articles/06-ppo-stuck.md)） |
-| 反事實驗證（進行中） | 15/34 局面完成，已完成關鍵局面 2/12 確認（[文章 07](articles/07-counterfactual-verification.md)） |
+- **練習後對練習前：77.3% 勝率**：對上只看真人對局學習、尚未自我對打的模型，贏了 309／400 局；這是電腦內測試，不是對真人的勝率。
+- **第二代對第一代：79.5% 勝率**：第二代大腦對上第一代，贏了 318／400 局；換大腦設計後，在這組測試更會打牌。
+- **訓練成本：每局約 10 秒處理器時間**，原本要 14.5 秒；同樣資源可以練更多場。這不是遊戲一局的實際長度。
 
-## 系統概念
+數據：[訓練後的表現](results/transfer.json)、[兩代比較](results/architectures.json)、[訓練速度](results/performance.json)。這些測試回答不同問題，不能直接互相比大小，也不代表玩家排名。
 
-模擬器 → 人類對局重演 → 模仿學習（IL）→ 自我對戰強化學習（PPO）→ 評估 → 線上對戰
+## 怎麼做到的？
 
-![架構概念圖](diagrams/architecture.svg)
+1. 讓電腦照同一份出牌紀錄重新進行對戰，確認每一步的場面都相同。
+2. 重播真人對局，教 AI 選牌、選位置與等待時機。
+3. 讓 AI 自己跟自己打，從勝負調整做法。
+4. 和先前的模型對打，確認是否真的變強，再測試與真人交手。
 
-（Mermaid 版本見 [diagrams/architecture.md](diagrams/architecture.md)。）
+## 模型怎麼一代代演進？
 
-## 圖表
+「代」指大腦設計；同一個大腦多練幾輪，不會多算一代。
+
+| 大腦 | 看到什麼、怎麼想 | 怎麼出牌、進步在哪 |
+|---|---|---|
+| 第一代 | 把塔、單位與手牌整理成局勢，記住前面的行動。 | 先判斷出哪個手牌欄位，再選位置；是後續比較的起點。 |
+| 第二代 | 加入物件間的關係與距離，繼續保留對局記憶。 | 直接看手中是哪張牌，來選牌與位置；對第一代勝率 79.5%（318 勝、82 敗）。 |
+
+兩代都知道手上有什麼牌；差別在於牌的資訊怎麼接到出牌判斷。
+這是整套模型的比較，還不能知道是哪個部件帶來進步。[看兩代的大腦圖與設計教訓](articles/08-model-architectures.md)。
+
+這份展示不提供可執行的 AI；原始碼、訓練資料與模型權重沒有收錄，僅附繪圖腳本。
+
+成果會受測試對手與場次影響；沒有單一數字能代表所有玩法。
+想了解測試方法，可以接著看工程文章。
+
+## 給工程師：研究圖表
+
+圖表用語：IL 是模仿真人的學習；RL 是依勝負學習，PPO 是本專案使用的方法；rollout 是讓模型決策並推演對局；CFV 是從同一局面比較兩種走法。
 
 **RL 迭代對 IL 基準的勝率**（每點 200 局，含 95% 信賴區間）
 
@@ -57,49 +69,59 @@
 
 圖表由 `results/*.json` 產生：`python3 tools/make_charts.py`（需要 matplotlib）。
 
-## 技術文章（草稿）
 
-1. [為什麼要逐 tick 決定性，以及怎麼證明它可重現](articles/01-determinism.md)
-2. [效能優化的意外：瓶頸其實在 Python](articles/02-python-bottleneck.md)
-3. [模型的成長曲線與觀察](articles/03-growth-curve.md)
-4. [跨架構逐 tick 決定性：x86_64 與 ARM64 的 50 局完全一致](articles/04-cross-arch-determinism.md)
-5. [為什麼我們的 rollout 比引擎慢 250 倍：剖析與 2× 修正](articles/05-rollout-250x.md)
-6. [PPO 卡住了：三個被否定的假說](articles/06-ppo-stuck.md)
-7. [反事實驗證：用原生模擬證明「另一手更好」（進行中）](articles/07-counterfactual-verification.md)
+<details>
+<summary>對真人的線上測試：兩組彙總戰績與限制</summary>
 
-## 影片
+- 較早、跨版本的完成對局：201／265 勝，75.8%（[資料](results/online_play.json)）。
+- 使用官方客戶端輸入與出牌格式的版本：251／284 勝，88.4%（[資料](results/online_official.json)）。
 
-90 秒、1080p 的研究展示影片（無聲，含字卡與數據）。影片包含遊戲對戰畫面（訓練營 NPC 對戰的原生錄影，約佔 90 秒中的 40 秒），不含任何玩家名稱。
+兩組來自不同時期與版本，統計範圍也不同；不是同一設定的前後比較，不能用來證明升級幅度。
+後者的「官方」描述軟體格式，不代表遊戲官方認可這項測試。
+兩組都沒有校正對手強度，僅供參考，不是排名宣稱。
 
-[![英文版影片](media/alphacr-research-poster.png)](media/alphacr-research.mp4)
+</details>
 
-- [英文版（MP4，7.6 MB）](media/alphacr-research.mp4)
-- [繁體中文版（MP4，7.5 MB）](media/alphacr-research-zh-TW.mp4)
+## 給工程師：技術文章
 
-## 數據說明
+1. [重跑同一場比賽，怎麼確認過程完全一樣？](articles/01-determinism.md)：逐步比對狀態，讓訓練結果可重現。
+2. [訓練太慢，該先加速哪裡？](articles/02-python-bottleneck.md)：量測發現瓶頸在引擎外圍的 Python。
+3. [自己跟自己打，真的會變強嗎？](articles/03-growth-curve.md)：看成長曲線，也看後期進步的不確定性。
+4. [換一種處理器，對戰過程還一樣嗎？](articles/04-cross-arch-determinism.md)：固定對局在兩種處理器上逐步一致。
+5. [引擎很快，為什麼 AI 打一局還是慢？](articles/05-rollout-250x.md)：重複檢查拖慢了對局，減少重複工作後加速。
+6. [繼續自我對打，為什麼沒有明顯變強？](articles/06-ppo-stuck.md)：測試三個解釋，仍沒有找到停滯原因。
+7. [換一個出牌決定，真的更容易贏嗎？](articles/07-counterfactual-verification.md)：從同一局面比較兩種走法；實驗仍在進行。
+8. [AI 的大腦換了什麼，實測進步多少？](articles/08-model-architectures.md)：兩代架構、比較結果，以及沒有發揮作用的設計。
 
-- RL 對 IL 的勝率：每個迭代各 200 局；第 19 迭代對第 14 迭代為 55.0%（110/200），統計上與 50% 難以區分。
-- 對真人玩家的線上測試對局（官方合約版本）只列彙總計數，由各次執行摘要檔重算；為單一設定、多次執行的累計，沒有校正對手強度，不是排名宣稱。
-- 反事實驗證為進行中的實驗，局面數與確認數會隨完成度改變；區間未作多重比較校正。
-- `results/*.json` 內的 `source` 欄位以通用標籤記錄每個數字對應的內部報告或執行紀錄（原始檔不在本 repo 內）。
-- 線上戰績為多個時期、多個版本的累計結果，樣本不大，僅供參考，不是排名宣稱。
+## 數據怎麼讀
+
+- 本展示保留既有研究快照；進行中的研究不代表最終結果。
+- 自我對戰成長圖每點測試 200 局；末點對上一個檢查點為 110／200 勝（55.0%），尚難區分是否進步。
+- 改輸入與出牌格式、權重相同的版本，對模仿真人的起點為 218／288 勝（75.7%）；與原格式的結果沒有量到明顯搬遷損失。
+- 比較另一手牌的實驗完成 15／34 個局面，其中關鍵局面 2／12 確認；區間未作多重比較校正。
+- 原始紀錄不在本 repo；數據檔中的 `source` 使用通用來源標籤。尚無來源標籤的既有檔案沿用原樣。
+
+## 影片與使用範圍
+
+- [繁體中文影片](media/alphacr-research-zh-TW.mp4)／[英文影片](media/alphacr-research.mp4)：無聲，含字卡與數據。
+- 影片包含訓練營電腦對手的原生對戰錄影，不含玩家名稱。
+- 本 repo 只含成果數據、圖表、概念圖、文章、影片與一個繪圖腳本；不含專案原始碼、訓練資料或模型權重，不是可執行或可複製的專案。
+- 本專案為獨立個人研究，與遊戲權利人無關。遊戲名稱與商標屬於各自所有人。
+
+## English summary
+
+AlphaCR is a personal research project that teaches an AI to play Clash Royale, a real-time head-to-head mobile game. It first learns when and where to play cards from human matches, then improves through games against itself, and finally plays online against people.
+
+In controlled computer tests, a self-play-trained model won 309 of 400 games against its imitation-learning starting point. In a separate architecture comparison, the second-generation model won 318 of 400 games against the first. These are different tests, not player rankings. The articles explain the methods, uncertainty and failed attempts; online results are separate aggregate samples in the expandable section above.
+
+This is a showcase, not an executable project. It contains no project source code, training data or model weights apart from a plotting script. The videos contain native training-camp NPC match footage with no player names. This independent project is not affiliated with the game's rights holder. All rights reserved; no open-source license is granted.
+
+## 致謝 / Acknowledgements
+
+本專案的模仿學習使用了去識別化的對局重播資料集 IL_Replay（`https://huggingface.co/datasets/VanguardX101/IL_Replay`）（由 VanguardX101 發布於 Hugging Face），原始對局來自 RoyaleAPI 的公開重播。感謝資料集作者公開這份資料。
+
+Imitation learning in this project uses IL_Replay（`https://huggingface.co/datasets/VanguardX101/IL_Replay`）, an anonymized battle-replay dataset published on Hugging Face by VanguardX101; the original battles come from public RoyaleAPI replays. Thanks to the dataset author for publishing it.
 
 ## License
 
 All rights reserved. 見 [LICENSE](LICENSE)。
-
----
-
-## English summary
-
-AlphaCR is a personal research project on a game-playing AI for a real-time head-to-head mobile game. It is built on a tick-level deterministic simulator and trained in two stages: imitation learning from human match replays, then self-play reinforcement learning (PPO).
-
-Highlights (updated; online test matches against human players are reported as aggregate counts only): the self-play line reaches 77.3% against the IL baseline (400 games) and transfers to a new observation contract with no measurable loss (75.7%, 218/288); per-tick state is byte-identical across x86_64 and ARM64 over 50 games / 227,770 ticks; profiling explained a 250x rollout slowdown and a one-line class fix gives 1.98x; three PPO hypotheses were tested and rejected; a preregistered counterfactual-verification study is in progress (15 of 34 positions done). Earlier highlights: after 19 PPO iterations the agent beats the imitation baseline 71.0% of the time (200 games, 95% CI 64.4-76.9%; 51.0% at iteration 4, 64.0% at 9, 68.5% at 14); in 265 finished online games against live opponents it won 201 (75.8%, small pooled sample); a profiling-driven optimization cut per-game CPU time from 14.5 s to about 10 s (1.44x overall).
-
-This repository is a showcase only. It contains **no project source code, data, or model weights**; the demo videos under `media/` contain game footage (native recordings of training-camp NPC matches, roughly 40 of 90 seconds; no player names). It includes no project source code apart from one plotting script, `tools/make_charts.py`, and is released under **All rights reserved** (no open-source license). The project is independent and not affiliated with the game's rights holder.
-
-## 致謝 / Acknowledgements
-
-本專案的模仿學習使用了去識別化的對局重播資料集 [IL_Replay](https://huggingface.co/datasets/VanguardX101/IL_Replay)（由 VanguardX101 發布於 Hugging Face），原始對局來自 RoyaleAPI 的公開重播。感謝資料集作者公開這份資料。
-
-Imitation learning in this project uses [IL_Replay](https://huggingface.co/datasets/VanguardX101/IL_Replay), an anonymized battle-replay dataset published on Hugging Face by VanguardX101; the original battles come from public RoyaleAPI replays. Thanks to the dataset author for publishing it.

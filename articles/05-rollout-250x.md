@@ -1,6 +1,11 @@
-# 為什麼我們的 rollout 比引擎慢 250 倍：剖析與 2× 修正
+# 引擎很快，為什麼 AI 打一局還是慢？
+
+**一句話：要找出 AI 打一局慢在哪裡，就得分開量引擎與周邊工作；這次主要浪費在逐格重複檢查，減少重複工作後速度接近加倍，修正尚未合併。**
+
 
 > AlphaCR 技術筆記 05。數據：[results/rollout_profile.json](../results/rollout_profile.json)。
+
+本文用語：rollout 是讓模型一路決策並推演對局；tick 是遊戲更新一步；checksum 是狀態內容的檢查摘要；forward 是模型算一次輸出；IPC 是程序間通訊。
 
 **Abstract.** The deterministic game logic runs at about 65,000 ticks/s on one Apple M3 Max core, but our policy-driven rollout loop reached only 262 ticks/s, roughly 250x slower. Profiling showed that the game logic itself is 0.45% of wall time. Nearly half of the time went into a state-integrity check executed once per candidate placement cell; verifying state once per card instead gives a 1.98x speedup on self-play and 2.06x on counterfactual continuations, with identical per-decision traces and end-state checksums on the tested games. The fix has not been merged.
 

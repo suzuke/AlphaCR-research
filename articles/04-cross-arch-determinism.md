@@ -1,6 +1,11 @@
-# 跨架構逐 tick 決定性：x86_64 與 ARM64 的 50 局完全一致
+# 換一種處理器，對戰過程還一樣嗎？
+
+**一句話：要讓不同硬體產生的訓練資料可比較，就得驗證相同操作能重現相同過程；這批固定對局在兩種處理器上逐步完全一致。**
+
 
 > AlphaCR 技術筆記 04。只談方法與結果，不談實作細節。數據：[results/parity.json](../results/parity.json)。
+
+本文用語：tick 是遊戲更新一步；checksum 是狀態內容的檢查摘要。x86_64 與 ARM64 是兩種處理器指令架構。
 
 **Abstract.** We ran the same game logic natively on x86_64 (Intel, Linux VM) and ARM64 (Apple silicon) and compared full per-tick state dumps byte for byte. Across 50 games with 50 distinct deck pairs (227,770 ticks in total) there was not a single mismatch. The comparison uses no tolerance, no reordering and no skipped fields; a deliberately corrupted input is rejected by the comparer (negative control). Scope: fixed command logs, not every card or seed.
 
