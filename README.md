@@ -34,6 +34,24 @@ AlphaCR 是一個會自己打《Clash Royale》這款即時對戰手遊的 AI �
 兩代都知道手上有什麼牌；差別在於牌的資訊怎麼接到出牌判斷。
 這是整套模型的比較，還不能知道是哪個部件帶來進步。[看兩代的大腦圖與設計教訓](articles/08-model-architectures.md)。
 
+## 靈感與目標：AlphaGo／AlphaZero
+
+靈感來自 DeepMind 的 AlphaGo／AlphaZero：讓 AI 從對局中學習，並在出手前多想幾步。這是研究目標，目前只完成其中一部分。
+
+- **AlphaGo（2016）**：先學人類棋譜，再靠自我對弈強化；下棋時用樹搜尋，比較後續走法。[Silver 等，Nature 2016](https://www.nature.com/articles/nature16961)。
+- **AlphaGo Zero（2017）**：不用人類棋譜，從零自我對弈，結合搜尋學習。[Silver 等，Nature 2017](https://www.nature.com/articles/nature24270)。
+- **AlphaZero（2017–2018）**：同樣不用人類對局資料，從零自我對弈＋搜尋，擴展到西洋棋、日本將棋與圍棋。[2017 預印本](https://arxiv.org/abs/1712.01815)；[Silver 等，Science 2018](https://doi.org/10.1126/science.aar6404)。
+
+| 想做到的事 | AlphaCR 走到哪？ |
+|---|---|
+| 學人類對局 | ✓ 已做到，叫做「模仿學習」。 |
+| 自我對打變強 | ✓ 已做到，用 PPO 這種依勝負調整出牌做法的訓練方法。 |
+| 對戰時邊想邊搜尋 | 只有離線實驗版：MCTS（蒙地卡羅樹搜尋）比較用的基本版本已實作並驗證；勝率與速度未量測，沒接進線上對戰。 |
+| 不靠人類資料，從零學起 | ✗ 還沒做。 |
+
+不能直接照搬：這款遊戲是即時對戰，雙方能同時行動，還看不到對手手牌；跟輪流落子、棋盤完全公開的圍棋不同。
+離線搜尋目前使用完整遊戲狀態，還不能代表只看玩家可見資訊的實戰能力。
+
 這份展示不提供可執行的 AI；原始碼、訓練資料與模型權重沒有收錄，僅附繪圖腳本。
 
 成果會受測試對手與場次影響；沒有單一數字能代表所有玩法。
@@ -107,12 +125,15 @@ AlphaCR 是一個會自己打《Clash Royale》這款即時對戰手遊的 AI �
 - 影片包含訓練營電腦對手的原生對戰錄影，不含玩家名稱。
 - 本 repo 只含成果數據、圖表、概念圖、文章、影片與一個繪圖腳本；不含專案原始碼、訓練資料或模型權重，不是可執行或可複製的專案。
 - 本專案為獨立個人研究，與遊戲權利人無關。遊戲名稱與商標屬於各自所有人。
+- AlphaGo／AlphaZero 是 DeepMind 的研究，與本專案無關。
 
 ## English summary
 
 AlphaCR is a personal research project that teaches an AI to play Clash Royale, a real-time head-to-head mobile game. It first learns when and where to play cards from human matches, then improves through games against itself, and finally plays online against people.
 
 In controlled computer tests, a self-play-trained model won 309 of 400 games against its imitation-learning starting point. In a separate architecture comparison, the second-generation model won 318 of 400 games against the first. These are different tests, not player rankings. The articles explain the methods, uncertainty and failed attempts; online results are separate aggregate samples in the expandable section above.
+
+Inspired by DeepMind’s AlphaGo and AlphaZero, AlphaCR currently combines imitation learning and PPO self-play training. Its offline full-state MCTS baseline has been implemented and validated, but its win rate and speed have not been measured, and it is not used in online play. Learning from scratch without human game data has not been done. AlphaGo and AlphaZero are DeepMind research projects and are not affiliated with this project.
 
 This is a showcase, not an executable project. It contains no project source code, training data or model weights apart from a plotting script. The videos contain native training-camp NPC match footage with no player names. This independent project is not affiliated with the game's rights holder. All rights reserved; no open-source license is granted.
 
