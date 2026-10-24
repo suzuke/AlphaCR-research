@@ -59,12 +59,12 @@
 
 zip 會公開放在 AlphaCR-research 的 GitHub Release，任何人都可取得。版本以 release tag 標示，例如 `friend-v1`；實際 tag 以發布頁為準。
 
-發布時，Release 說明與本頁會列出同一份 zip 的 SHA-256 校驗值，用來核對下載檔案。下表是已整合下載修正的候選包；發布時請核對 Release 附件與此值一致。
+發布時，Release 說明與本頁會列出同一份 zip 的 SHA-256 校驗值，用來核對下載檔案。下表是已整合下載修正與內部資料清理的候選包；發布時請核對 Release 附件與此值一致。
 
 | 發布資料 | 狀態 |
 |---|---|
 | Release tag 與下載位置 | 待發布時填入 |
-| zip SHA-256 | `42153ca4ee6bfcfc8aee018711033b16f5f4609342a2c7521bcc81107fe0c61a` |
+| zip SHA-256 | `b70f9ba073c610b46180741c0d61a191c762cf3c0374d3bbca61535b7c06d9e4` |
 
 公開 repo 只收錄這份安裝說明，不另外收腳本；五個雙擊腳本都在 zip 裡。
 
