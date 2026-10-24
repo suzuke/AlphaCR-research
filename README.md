@@ -148,6 +148,6 @@ Imitation learning in this project uses IL_Replay（`https://huggingface.co/data
 
 All rights reserved. 見 [LICENSE](LICENSE)。
 
-## 朋友版安裝說明草稿
+## 試玩包下載與安裝
 
-[雙擊安裝與使用](articles/friend-install.md)。zip 將透過 GitHub Release 公開提供，目前尚未發布。
+[AlphaCR v1.0 試玩包](https://github.com/suzuke/AlphaCR-research/releases/tag/v1.0)：Apple Silicon Mac，macOS 15 以上。[雙擊安裝與使用說明](articles/friend-install.md)。
