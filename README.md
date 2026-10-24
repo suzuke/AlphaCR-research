@@ -147,3 +147,7 @@ Imitation learning in this project uses IL_Replay（`https://huggingface.co/data
 ## License
 
 All rights reserved. 見 [LICENSE](LICENSE)。
+
+## 朋友版安裝說明草稿
+
+[雙擊安裝與使用](articles/friend-install.md)。zip 將透過 GitHub Release 公開提供，目前尚未發布。
