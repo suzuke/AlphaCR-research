@@ -2,7 +2,7 @@
 
 第一次只需替「安裝.command」放行一次。試玩包沒有 Apple 簽章；macOS 15 不能用右鍵 →「打開」略過。雙擊安裝被擋下後，到「系統設定 → 隱私權與安全性」最底下按「強制打開」，輸入 Mac 登入密碼，再按「打開」。
 
-下載：[GitHub Release `friend-v1`](https://github.com/suzuke/AlphaCR-research/releases/tag/friend-v1)。已在乾淨的 macOS 15.6.1 從頭安裝並試玩過。
+下載：[GitHub Release `v1.0`](https://github.com/suzuke/AlphaCR-research/releases/tag/v1.0)。已在乾淨的 macOS 15.6.1 從頭安裝並試玩過。
 
 ## 準備兩個檔案
 
@@ -10,7 +10,7 @@
 
 | 檔案 | 放哪裡 |
 |---|---|
-| AlphaCR-research 的 GitHub Release 提供的試玩包 zip | 下載後解壓縮 |
+| GitHub Release 的試玩包 `AlphaCR-v1.0.zip` | 下載後解壓縮 |
 | 你自己取得的 Nulls 15.535.13 APK（Android 安裝檔） | 放在「下載項目」：`~/Downloads`，且只留一個 `.apk`；檔名不用改 |
 
 我們的包不包含遊戲檔案，也不會代你下載 APK。其他版本會被檢查擋下，改檔名也不能使用。下載項目裡只留一個 `.apk`，檔名不限；版本由檔案雜湊檢查把關。
@@ -57,13 +57,13 @@
 
 ## 版本與下載校驗
 
-zip 會公開放在 AlphaCR-research 的 GitHub Release，任何人都可取得。版本以 release tag 標示，例如 `friend-v1`；實際 tag 以發布頁為準。
+zip 會公開放在 AlphaCR-research 的 GitHub Release，任何人都可取得。版本以 release tag 標示，例如 `v1.0`；實際 tag 以發布頁為準。
 
 發布時，Release 說明與本頁會列出同一份 zip 的 SHA-256 校驗值，用來核對下載檔案。下載後請核對 zip 的 SHA-256 與下表一致（終端機：`shasum -a 256 <zip 檔>`）。
 
 | 發布資料 | 狀態 |
 |---|---|
-| Release tag 與下載位置 | [`friend-v1`](https://github.com/suzuke/AlphaCR-research/releases/tag/friend-v1) |
+| Release tag 與下載位置 | [`v1.0`](https://github.com/suzuke/AlphaCR-research/releases/tag/v1.0) |
 | zip SHA-256 | `b70f9ba073c610b46180741c0d61a191c762cf3c0374d3bbca61535b7c06d9e4` |
 
 公開 repo 只收錄這份安裝說明，不另外收腳本；五個雙擊腳本都在 zip 裡。
